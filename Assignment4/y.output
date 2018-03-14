@@ -1,0 +1,877 @@
+State 9 conflicts: 1 reduce/reduce
+State 13 conflicts: 1 reduce/reduce
+State 14 conflicts: 1 reduce/reduce
+State 15 conflicts: 1 reduce/reduce
+State 20 conflicts: 1 shift/reduce
+State 23 conflicts: 1 shift/reduce
+State 24 conflicts: 1 shift/reduce
+State 26 conflicts: 1 shift/reduce
+State 28 conflicts: 1 shift/reduce
+State 49 conflicts: 1 reduce/reduce
+
+
+Grammar
+
+    0 $accept: sym $end
+
+    1 sym: S ';'
+    2    | sym S ';'
+
+    3 S: S1
+    4  | S2
+    5  | S3
+    6  | S4
+    7  | Str
+    8  | Num
+    9  | '(' Str ')'
+   10  | exit_command
+
+   11 Str: '(' S_r ')'
+   12    | S_r
+
+   13 S1: S_r '*' S_r
+   14   | '(' S1 ')'
+
+   15 S_r: S1
+   16    | s_op
+   17    | S2
+
+   18 Num: '(' N_r ')'
+   19    | N_r
+
+   20 N_r: '(' n_op ')'
+   21    | n_op
+   22    | S3
+   23    | S4
+
+   24 S2: S_r '^' N_r
+   25   | '(' S2 ')'
+   26   | S_r '%' N_r
+   27   | S_r '&' N_r
+
+   28 S3: '(' N_r ')'
+   29   | '?' S_r
+
+   30 S4: '(' S4 ')'
+   31   | S_r '~' S_r
+   32   | S_r '@' S_r
+   33   | S_r '#' S_r
+   34   | S_r '=' S_r
+   35   | S_r '!' S_r
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'!' (33) 35
+'#' (35) 33
+'%' (37) 26
+'&' (38) 27
+'(' (40) 9 11 14 18 20 25 28 30
+')' (41) 9 11 14 18 20 25 28 30
+'*' (42) 13
+';' (59) 1 2
+'=' (61) 34
+'?' (63) 29
+'@' (64) 32
+'^' (94) 24
+'~' (126) 31
+error (256)
+s_op (258) 16
+n_op (259) 20 21
+exit_command (260) 10
+
+
+Nonterminals, with rules where they appear
+
+$accept (19)
+    on left: 0
+sym (20)
+    on left: 1 2, on right: 0 2
+S (21)
+    on left: 3 4 5 6 7 8 9 10, on right: 1 2
+Str (22)
+    on left: 11 12, on right: 7 9
+S1 (23)
+    on left: 13 14, on right: 3 14 15
+S_r (24)
+    on left: 15 16 17, on right: 11 12 13 24 26 27 29 31 32 33 34 35
+Num (25)
+    on left: 18 19, on right: 8
+N_r (26)
+    on left: 20 21 22 23, on right: 18 19 24 26 27 28
+S2 (27)
+    on left: 24 25 26 27, on right: 4 17 25
+S3 (28)
+    on left: 28 29, on right: 5 22
+S4 (29)
+    on left: 30 31 32 33 34 35, on right: 6 23 30
+
+
+State 0
+
+    0 $accept: . sym $end
+
+    s_op          shift, and go to state 1
+    n_op          shift, and go to state 2
+    exit_command  shift, and go to state 3
+    '?'           shift, and go to state 4
+    '('           shift, and go to state 5
+
+    sym  go to state 6
+    S    go to state 7
+    Str  go to state 8
+    S1   go to state 9
+    S_r  go to state 10
+    Num  go to state 11
+    N_r  go to state 12
+    S2   go to state 13
+    S3   go to state 14
+    S4   go to state 15
+
+
+State 1
+
+   16 S_r: s_op .
+
+    $default  reduce using rule 16 (S_r)
+
+
+State 2
+
+   21 N_r: n_op .
+
+    $default  reduce using rule 21 (N_r)
+
+
+State 3
+
+   10 S: exit_command .
+
+    $default  reduce using rule 10 (S)
+
+
+State 4
+
+   29 S3: '?' . S_r
+
+    s_op  shift, and go to state 1
+    '('   shift, and go to state 16
+
+    S1   go to state 17
+    S_r  go to state 18
+    S2   go to state 19
+
+
+State 5
+
+    9 S: '(' . Str ')'
+   11 Str: '(' . S_r ')'
+   14 S1: '(' . S1 ')'
+   18 Num: '(' . N_r ')'
+   20 N_r: '(' . n_op ')'
+   25 S2: '(' . S2 ')'
+   28 S3: '(' . N_r ')'
+   30 S4: '(' . S4 ')'
+
+    s_op  shift, and go to state 1
+    n_op  shift, and go to state 20
+    '?'   shift, and go to state 4
+    '('   shift, and go to state 21
+
+    Str  go to state 22
+    S1   go to state 23
+    S_r  go to state 24
+    N_r  go to state 25
+    S2   go to state 26
+    S3   go to state 27
+    S4   go to state 28
+
+
+State 6
+
+    0 $accept: sym . $end
+    2 sym: sym . S ';'
+
+    $end          shift, and go to state 29
+    s_op          shift, and go to state 1
+    n_op          shift, and go to state 2
+    exit_command  shift, and go to state 3
+    '?'           shift, and go to state 4
+    '('           shift, and go to state 5
+
+    S    go to state 30
+    Str  go to state 8
+    S1   go to state 9
+    S_r  go to state 10
+    Num  go to state 11
+    N_r  go to state 12
+    S2   go to state 13
+    S3   go to state 14
+    S4   go to state 15
+
+
+State 7
+
+    1 sym: S . ';'
+
+    ';'  shift, and go to state 31
+
+
+State 8
+
+    7 S: Str .
+
+    $default  reduce using rule 7 (S)
+
+
+State 9
+
+    3 S: S1 .
+   15 S_r: S1 .
+
+    ';'       reduce using rule 3 (S)
+    ';'       [reduce using rule 15 (S_r)]
+    $default  reduce using rule 15 (S_r)
+
+
+State 10
+
+   12 Str: S_r .
+   13 S1: S_r . '*' S_r
+   24 S2: S_r . '^' N_r
+   26   | S_r . '%' N_r
+   27   | S_r . '&' N_r
+   31 S4: S_r . '~' S_r
+   32   | S_r . '@' S_r
+   33   | S_r . '#' S_r
+   34   | S_r . '=' S_r
+   35   | S_r . '!' S_r
+
+    '='  shift, and go to state 32
+    '!'  shift, and go to state 33
+    '#'  shift, and go to state 34
+    '@'  shift, and go to state 35
+    '~'  shift, and go to state 36
+    '&'  shift, and go to state 37
+    '%'  shift, and go to state 38
+    '*'  shift, and go to state 39
+    '^'  shift, and go to state 40
+
+    $default  reduce using rule 12 (Str)
+
+
+State 11
+
+    8 S: Num .
+
+    $default  reduce using rule 8 (S)
+
+
+State 12
+
+   19 Num: N_r .
+
+    $default  reduce using rule 19 (Num)
+
+
+State 13
+
+    4 S: S2 .
+   17 S_r: S2 .
+
+    ';'       reduce using rule 4 (S)
+    ';'       [reduce using rule 17 (S_r)]
+    $default  reduce using rule 17 (S_r)
+
+
+State 14
+
+    5 S: S3 .
+   22 N_r: S3 .
+
+    ';'       reduce using rule 5 (S)
+    ';'       [reduce using rule 22 (N_r)]
+    $default  reduce using rule 5 (S)
+
+
+State 15
+
+    6 S: S4 .
+   23 N_r: S4 .
+
+    ';'       reduce using rule 6 (S)
+    ';'       [reduce using rule 23 (N_r)]
+    $default  reduce using rule 6 (S)
+
+
+State 16
+
+   14 S1: '(' . S1 ')'
+   25 S2: '(' . S2 ')'
+
+    s_op  shift, and go to state 1
+    '('   shift, and go to state 16
+
+    S1   go to state 23
+    S_r  go to state 41
+    S2   go to state 26
+
+
+State 17
+
+   15 S_r: S1 .
+
+    $default  reduce using rule 15 (S_r)
+
+
+State 18
+
+   13 S1: S_r . '*' S_r
+   24 S2: S_r . '^' N_r
+   26   | S_r . '%' N_r
+   27   | S_r . '&' N_r
+   29 S3: '?' S_r .
+
+    $default  reduce using rule 29 (S3)
+
+
+State 19
+
+   17 S_r: S2 .
+
+    $default  reduce using rule 17 (S_r)
+
+
+State 20
+
+   20 N_r: '(' n_op . ')'
+   21    | n_op .
+
+    ')'  shift, and go to state 42
+
+    ')'  [reduce using rule 21 (N_r)]
+
+
+State 21
+
+   11 Str: '(' . S_r ')'
+   14 S1: '(' . S1 ')'
+   20 N_r: '(' . n_op ')'
+   25 S2: '(' . S2 ')'
+   28 S3: '(' . N_r ')'
+   30 S4: '(' . S4 ')'
+
+    s_op  shift, and go to state 1
+    n_op  shift, and go to state 20
+    '?'   shift, and go to state 4
+    '('   shift, and go to state 43
+
+    S1   go to state 23
+    S_r  go to state 44
+    N_r  go to state 45
+    S2   go to state 26
+    S3   go to state 27
+    S4   go to state 28
+
+
+State 22
+
+    9 S: '(' Str . ')'
+
+    ')'  shift, and go to state 46
+
+
+State 23
+
+   14 S1: '(' S1 . ')'
+   15 S_r: S1 .
+
+    ')'  shift, and go to state 47
+
+    ')'       [reduce using rule 15 (S_r)]
+    $default  reduce using rule 15 (S_r)
+
+
+State 24
+
+   11 Str: '(' S_r . ')'
+   12    | S_r .
+   13 S1: S_r . '*' S_r
+   24 S2: S_r . '^' N_r
+   26   | S_r . '%' N_r
+   27   | S_r . '&' N_r
+   31 S4: S_r . '~' S_r
+   32   | S_r . '@' S_r
+   33   | S_r . '#' S_r
+   34   | S_r . '=' S_r
+   35   | S_r . '!' S_r
+
+    '='  shift, and go to state 32
+    '!'  shift, and go to state 33
+    '#'  shift, and go to state 34
+    '@'  shift, and go to state 35
+    '~'  shift, and go to state 36
+    '&'  shift, and go to state 37
+    '%'  shift, and go to state 38
+    '*'  shift, and go to state 39
+    '^'  shift, and go to state 40
+    ')'  shift, and go to state 48
+
+    ')'  [reduce using rule 12 (Str)]
+
+
+State 25
+
+   18 Num: '(' N_r . ')'
+   28 S3: '(' N_r . ')'
+
+    ')'  shift, and go to state 49
+
+
+State 26
+
+   17 S_r: S2 .
+   25 S2: '(' S2 . ')'
+
+    ')'  shift, and go to state 50
+
+    ')'       [reduce using rule 17 (S_r)]
+    $default  reduce using rule 17 (S_r)
+
+
+State 27
+
+   22 N_r: S3 .
+
+    $default  reduce using rule 22 (N_r)
+
+
+State 28
+
+   23 N_r: S4 .
+   30 S4: '(' S4 . ')'
+
+    ')'  shift, and go to state 51
+
+    ')'  [reduce using rule 23 (N_r)]
+
+
+State 29
+
+    0 $accept: sym $end .
+
+    $default  accept
+
+
+State 30
+
+    2 sym: sym S . ';'
+
+    ';'  shift, and go to state 52
+
+
+State 31
+
+    1 sym: S ';' .
+
+    $default  reduce using rule 1 (sym)
+
+
+State 32
+
+   34 S4: S_r '=' . S_r
+
+    s_op  shift, and go to state 1
+    '('   shift, and go to state 16
+
+    S1   go to state 17
+    S_r  go to state 53
+    S2   go to state 19
+
+
+State 33
+
+   35 S4: S_r '!' . S_r
+
+    s_op  shift, and go to state 1
+    '('   shift, and go to state 16
+
+    S1   go to state 17
+    S_r  go to state 54
+    S2   go to state 19
+
+
+State 34
+
+   33 S4: S_r '#' . S_r
+
+    s_op  shift, and go to state 1
+    '('   shift, and go to state 16
+
+    S1   go to state 17
+    S_r  go to state 55
+    S2   go to state 19
+
+
+State 35
+
+   32 S4: S_r '@' . S_r
+
+    s_op  shift, and go to state 1
+    '('   shift, and go to state 16
+
+    S1   go to state 17
+    S_r  go to state 56
+    S2   go to state 19
+
+
+State 36
+
+   31 S4: S_r '~' . S_r
+
+    s_op  shift, and go to state 1
+    '('   shift, and go to state 16
+
+    S1   go to state 17
+    S_r  go to state 57
+    S2   go to state 19
+
+
+State 37
+
+   27 S2: S_r '&' . N_r
+
+    s_op  shift, and go to state 1
+    n_op  shift, and go to state 2
+    '?'   shift, and go to state 4
+    '('   shift, and go to state 43
+
+    S1   go to state 17
+    S_r  go to state 58
+    N_r  go to state 59
+    S2   go to state 19
+    S3   go to state 27
+    S4   go to state 60
+
+
+State 38
+
+   26 S2: S_r '%' . N_r
+
+    s_op  shift, and go to state 1
+    n_op  shift, and go to state 2
+    '?'   shift, and go to state 4
+    '('   shift, and go to state 43
+
+    S1   go to state 17
+    S_r  go to state 58
+    N_r  go to state 61
+    S2   go to state 19
+    S3   go to state 27
+    S4   go to state 60
+
+
+State 39
+
+   13 S1: S_r '*' . S_r
+
+    s_op  shift, and go to state 1
+    '('   shift, and go to state 16
+
+    S1   go to state 17
+    S_r  go to state 62
+    S2   go to state 19
+
+
+State 40
+
+   24 S2: S_r '^' . N_r
+
+    s_op  shift, and go to state 1
+    n_op  shift, and go to state 2
+    '?'   shift, and go to state 4
+    '('   shift, and go to state 43
+
+    S1   go to state 17
+    S_r  go to state 58
+    N_r  go to state 63
+    S2   go to state 19
+    S3   go to state 27
+    S4   go to state 60
+
+
+State 41
+
+   13 S1: S_r . '*' S_r
+   24 S2: S_r . '^' N_r
+   26   | S_r . '%' N_r
+   27   | S_r . '&' N_r
+
+    '&'  shift, and go to state 37
+    '%'  shift, and go to state 38
+    '*'  shift, and go to state 39
+    '^'  shift, and go to state 40
+
+
+State 42
+
+   20 N_r: '(' n_op ')' .
+
+    $default  reduce using rule 20 (N_r)
+
+
+State 43
+
+   14 S1: '(' . S1 ')'
+   20 N_r: '(' . n_op ')'
+   25 S2: '(' . S2 ')'
+   28 S3: '(' . N_r ')'
+   30 S4: '(' . S4 ')'
+
+    s_op  shift, and go to state 1
+    n_op  shift, and go to state 20
+    '?'   shift, and go to state 4
+    '('   shift, and go to state 43
+
+    S1   go to state 23
+    S_r  go to state 58
+    N_r  go to state 45
+    S2   go to state 26
+    S3   go to state 27
+    S4   go to state 28
+
+
+State 44
+
+   11 Str: '(' S_r . ')'
+   13 S1: S_r . '*' S_r
+   24 S2: S_r . '^' N_r
+   26   | S_r . '%' N_r
+   27   | S_r . '&' N_r
+   31 S4: S_r . '~' S_r
+   32   | S_r . '@' S_r
+   33   | S_r . '#' S_r
+   34   | S_r . '=' S_r
+   35   | S_r . '!' S_r
+
+    '='  shift, and go to state 32
+    '!'  shift, and go to state 33
+    '#'  shift, and go to state 34
+    '@'  shift, and go to state 35
+    '~'  shift, and go to state 36
+    '&'  shift, and go to state 37
+    '%'  shift, and go to state 38
+    '*'  shift, and go to state 39
+    '^'  shift, and go to state 40
+    ')'  shift, and go to state 48
+
+
+State 45
+
+   28 S3: '(' N_r . ')'
+
+    ')'  shift, and go to state 64
+
+
+State 46
+
+    9 S: '(' Str ')' .
+
+    $default  reduce using rule 9 (S)
+
+
+State 47
+
+   14 S1: '(' S1 ')' .
+
+    $default  reduce using rule 14 (S1)
+
+
+State 48
+
+   11 Str: '(' S_r ')' .
+
+    $default  reduce using rule 11 (Str)
+
+
+State 49
+
+   18 Num: '(' N_r ')' .
+   28 S3: '(' N_r ')' .
+
+    ';'       reduce using rule 18 (Num)
+    ';'       [reduce using rule 28 (S3)]
+    $default  reduce using rule 18 (Num)
+
+
+State 50
+
+   25 S2: '(' S2 ')' .
+
+    $default  reduce using rule 25 (S2)
+
+
+State 51
+
+   30 S4: '(' S4 ')' .
+
+    $default  reduce using rule 30 (S4)
+
+
+State 52
+
+    2 sym: sym S ';' .
+
+    $default  reduce using rule 2 (sym)
+
+
+State 53
+
+   13 S1: S_r . '*' S_r
+   24 S2: S_r . '^' N_r
+   26   | S_r . '%' N_r
+   27   | S_r . '&' N_r
+   34 S4: S_r '=' S_r .
+
+    '&'  shift, and go to state 37
+    '%'  shift, and go to state 38
+    '*'  shift, and go to state 39
+    '^'  shift, and go to state 40
+
+    $default  reduce using rule 34 (S4)
+
+
+State 54
+
+   13 S1: S_r . '*' S_r
+   24 S2: S_r . '^' N_r
+   26   | S_r . '%' N_r
+   27   | S_r . '&' N_r
+   35 S4: S_r '!' S_r .
+
+    '&'  shift, and go to state 37
+    '%'  shift, and go to state 38
+    '*'  shift, and go to state 39
+    '^'  shift, and go to state 40
+
+    $default  reduce using rule 35 (S4)
+
+
+State 55
+
+   13 S1: S_r . '*' S_r
+   24 S2: S_r . '^' N_r
+   26   | S_r . '%' N_r
+   27   | S_r . '&' N_r
+   33 S4: S_r '#' S_r .
+
+    '&'  shift, and go to state 37
+    '%'  shift, and go to state 38
+    '*'  shift, and go to state 39
+    '^'  shift, and go to state 40
+
+    $default  reduce using rule 33 (S4)
+
+
+State 56
+
+   13 S1: S_r . '*' S_r
+   24 S2: S_r . '^' N_r
+   26   | S_r . '%' N_r
+   27   | S_r . '&' N_r
+   32 S4: S_r '@' S_r .
+
+    '&'  shift, and go to state 37
+    '%'  shift, and go to state 38
+    '*'  shift, and go to state 39
+    '^'  shift, and go to state 40
+
+    $default  reduce using rule 32 (S4)
+
+
+State 57
+
+   13 S1: S_r . '*' S_r
+   24 S2: S_r . '^' N_r
+   26   | S_r . '%' N_r
+   27   | S_r . '&' N_r
+   31 S4: S_r '~' S_r .
+
+    '&'  shift, and go to state 37
+    '%'  shift, and go to state 38
+    '*'  shift, and go to state 39
+    '^'  shift, and go to state 40
+
+    $default  reduce using rule 31 (S4)
+
+
+State 58
+
+   13 S1: S_r . '*' S_r
+   24 S2: S_r . '^' N_r
+   26   | S_r . '%' N_r
+   27   | S_r . '&' N_r
+   31 S4: S_r . '~' S_r
+   32   | S_r . '@' S_r
+   33   | S_r . '#' S_r
+   34   | S_r . '=' S_r
+   35   | S_r . '!' S_r
+
+    '='  shift, and go to state 32
+    '!'  shift, and go to state 33
+    '#'  shift, and go to state 34
+    '@'  shift, and go to state 35
+    '~'  shift, and go to state 36
+    '&'  shift, and go to state 37
+    '%'  shift, and go to state 38
+    '*'  shift, and go to state 39
+    '^'  shift, and go to state 40
+
+
+State 59
+
+   27 S2: S_r '&' N_r .
+
+    $default  reduce using rule 27 (S2)
+
+
+State 60
+
+   23 N_r: S4 .
+
+    $default  reduce using rule 23 (N_r)
+
+
+State 61
+
+   26 S2: S_r '%' N_r .
+
+    $default  reduce using rule 26 (S2)
+
+
+State 62
+
+   13 S1: S_r . '*' S_r
+   13   | S_r '*' S_r .
+   24 S2: S_r . '^' N_r
+   26   | S_r . '%' N_r
+   27   | S_r . '&' N_r
+
+    '^'  shift, and go to state 40
+
+    $default  reduce using rule 13 (S1)
+
+
+State 63
+
+   24 S2: S_r '^' N_r .
+
+    $default  reduce using rule 24 (S2)
+
+
+State 64
+
+   28 S3: '(' N_r ')' .
+
+    $default  reduce using rule 28 (S3)
